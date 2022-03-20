@@ -234,7 +234,7 @@ const getInfo = async (file: Blob): Promise<MachoInfo> => {
         commonName: "NULL",
         entitlements: "NULL",
         certificate: "NULL",
-        icon: null,
+        icon: Promise.reject("No Icon"),
         infoPlist: {},
       };
 

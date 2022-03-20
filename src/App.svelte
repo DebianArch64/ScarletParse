@@ -1,13 +1,7 @@
 <script lang="ts">
   import { getInfo, save, MachoInfo, readableEntitlements } from "./lib/macho-parse"
   let files;
-  var promise: Promise<MachoInfo> = Promise.resolve({
-    commonName: "NULL",
-    entitlements: "NULL",
-    certificate: "NULL",
-    icon: Promise.resolve(new Blob()),
-    infoPlist: {},
-  });
+  var promise: Promise<MachoInfo> = Promise.reject("Couldn't Parse");
 
   const fileInput = (e) => {
     let file = e.target.files[0]
