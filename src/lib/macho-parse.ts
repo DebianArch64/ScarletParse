@@ -114,13 +114,15 @@ const getZipInfo = async (file: Blob): Promise<MachoInfo> => {
     zipReader
       .getEntries()
       .then((entries) => {
-        // Check if Payload folder exists and it has .app folder
         let appFolder: string = null;
         for (let entry of entries) {
-          if (entry.filename.endsWith(".app/", entry.filename.length)) {
-            appFolder = entry.filename;
-            break;
-          }
+          const payload = entry.filename.indexOf("Payload/");
+          if (payload < 0) break;
+
+          const nextElem = entry.filename.indexOf("/", payload + 8) + 1;
+          if (nextElem < 0 || nextElem == payload) continue;
+          appFolder = entry.filename.substring(payload, nextElem);
+          break;
         }
 
         if (appFolder == null) {
